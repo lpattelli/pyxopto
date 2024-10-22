@@ -24,7 +24,7 @@ import os.path
 from typing import Tuple
 
 import numpy as np
-from scipy.integrate import simps
+from scipy.integrate import simpson
 from scipy.interpolate import interp1d
 
 from xopto import DATA_PATH
@@ -431,9 +431,9 @@ class Observer:
         cmf = self.xyz_cmf(wavelengths)
 
         return \
-            simps(spectrum*cmf[0], wavelengths), \
-            simps(spectrum*cmf[1], wavelengths), \
-            simps(spectrum*cmf[2], wavelengths)
+            simpson(spectrum*cmf[0], wavelengths), \
+            simpson(spectrum*cmf[1], wavelengths), \
+            simpson(spectrum*cmf[2], wavelengths)
 
     def rgb(self, wavelengths: np.ndarray, spectrum: np.ndarray) \
             -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -456,9 +456,9 @@ class Observer:
         rgb_cmf = self.rgb_cmf(wavelengths)
 
         return \
-            simps(spectrum*rgb_cmf[0], wavelengths), \
-            simps(spectrum*rgb_cmf[1], wavelengths), \
-            simps(spectrum*rgb_cmf[2], wavelengths)
+            simpson(spectrum*rgb_cmf[0], wavelengths), \
+            simpson(spectrum*rgb_cmf[1], wavelengths), \
+            simpson(spectrum*rgb_cmf[2], wavelengths)
 
     def xyY(self, wavelengths: np.ndarray, spectrum: np.ndarray) -> np.ndarray:
         '''
@@ -1020,7 +1020,7 @@ class Illuminant:
                 raise ValueError('Unknown observer "{}"!'.format(observer))
             observer = observer_
 
-        XYZ = simps(
+        XYZ = simpson(
             observer.xyz_cmf(STANDARD_WAVELENGTHS)*
                 self.spd(STANDARD_WAVELENGTHS),
             dx=STANDARD_WAVELENGTH_STEP

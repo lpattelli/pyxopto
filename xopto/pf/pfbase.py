@@ -23,7 +23,7 @@
 from typing import Tuple
 
 import numpy as np
-from scipy.integrate import quad, simps
+from scipy.integrate import quad, simpson
 from scipy.optimize import minimize
 from scipy.interpolate import interp1d
 
@@ -56,7 +56,7 @@ def fastg(n: int, pf: np.ndarray, costheta: np.ndarray = None) -> float:
     if costheta is None:
         costheta = np.linspace(-1.0, 1.0, pf.size)
 
-    return simps(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
+    return simpson(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
                  dx=costheta[1] - costheta[0])
 
 def fastgs(last: int, pf: np.ndarray, costheta: np.ndarray = None,
@@ -94,8 +94,8 @@ def fastgs(last: int, pf: np.ndarray, costheta: np.ndarray = None,
         out = np.zeros([last + 1])
 
     for n in range(last + 1):
-        out[n] = simps(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
-                       dx=costheta[1] - costheta[0])
+        out[n] = simpson(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
+                         dx=costheta[1] - costheta[0])
     return out
 
 
@@ -318,8 +318,8 @@ class PfBase:
         if pf is None:
             pf = self(costheta)
 
-        return simps(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
-                     dx=costheta[1] - costheta[0])
+        return simpson(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
+                       dx=costheta[1] - costheta[0])
 
     def fastgs(self, last: int, npts: int = 1000, pf: np.ndarray = None,
                costheta: np.ndarray =None) -> np.ndarray:
@@ -363,8 +363,8 @@ class PfBase:
 
         G = np.zeros([last + 1])
         for n in range(last + 1):
-            G[n] = simps(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
-                         dx=costheta[1] - costheta[0])
+            G[n] = simpson(pf*np.polynomial.legendre.Legendre.basis(n)(costheta),
+                           dx=costheta[1] - costheta[0])
         return G
 
     def cdf(self, costheta: np.ndarray, meth: str = 'simpson',

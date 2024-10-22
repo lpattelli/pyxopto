@@ -22,8 +22,6 @@
 
 from typing import Tuple
 
-import numpy as np
-
 from .mie import Mie
 from .miefractal import MieFractal
 from .mienormal import MieNormal

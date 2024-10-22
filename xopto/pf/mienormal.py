@@ -22,8 +22,6 @@
 
 from typing import Callable
 
-import numpy as np
-
 from .pfbase import PfBase
 from .miepd import MiePd
 from .distribution import Normal

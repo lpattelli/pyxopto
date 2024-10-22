@@ -20,8 +20,6 @@
 # along with PyXOpto. If not, see <https://www.gnu.org/licenses/>.
 ################################# End license ##################################
 
-import numpy as np
-
 from .distribution import Normal
 from .miemlpd import MieMlPd, ComplexVector, FloatVector
 

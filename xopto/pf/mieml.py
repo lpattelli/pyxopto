@@ -23,7 +23,6 @@
 from typing import List, Tuple
 
 import numpy as np
-from scipy.integrate import simps, quad
 from scattnlay import scattnlay
 
 from .pfbase import PfBase

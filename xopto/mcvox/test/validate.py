@@ -26,8 +26,6 @@ import pickle
 import time
 
 import numpy as np
-from scipy import io
-from scipy.integrate import simps
 
 from xopto.mcbase.mctest import McTest
 

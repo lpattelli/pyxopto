@@ -20,13 +20,10 @@
 # along with PyXOpto. If not, see <https://www.gnu.org/licenses/>.
 ################################# End license ##################################
 
-from typing import Callable, Tuple
-
-import numpy as np
-from scipy.integrate import simps, quad
+from typing import Tuple
 
 from .distribution import Fractal
-from .miemlpd import MieMlPd, ComplexVector, FloatVector
+from .miemlpd import MieMlPd, ComplexVector
 
 
 class MieMlFractal(MieMlPd):

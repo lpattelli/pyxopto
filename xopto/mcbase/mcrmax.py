@@ -21,7 +21,7 @@
 ################################# End license ##################################
 
 import numpy as np
-from scipy.integrate import simps
+from scipy.integrate import simpson
 
 from xopto.diffusion.srr import SRDA
 
@@ -120,12 +120,12 @@ class RmaxDiffusion:
 
     def _r_total(self) -> float:
         r = np.linspace(0, self.R_MAX, self.STEPS)
-        return simps(
+        return simpson(
             2.0*np.pi*self._da(r, self._mua, self._musr)*r, dx=r[1] - r[0])
 
     def _residual(self, i) -> float:
         r = np.linspace(self._rmin + (i - 1)*self._dr, self.R_MAX, self.STEPS)
-        return simps(
+        return simpson(
             2.0*np.pi*self._da(r, self._mua, self._musr)*r, dx=r[1] - r[0])
 
     def _find_rmax(self) -> float:

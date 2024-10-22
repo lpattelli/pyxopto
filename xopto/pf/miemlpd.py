@@ -23,7 +23,7 @@
 from typing import Callable, Tuple
 
 import numpy as np
-from scipy.integrate import simps, quad
+from scipy.integrate import simpson, quad
 
 from .pfbase import PfBase
 from .mieml import MieMl, ComplexVector, FloatVector
@@ -196,9 +196,9 @@ class MieMlPd(PfBase):
                 Scs_p[i] = mieml.scs()*self._pdpts[i]
                 Ecs_p[i] = mieml.ecs()*self._pdpts[i]
 
-            self._scs = simps(Scs_p, dx=self._dd)
-            self._ecs = simps(Ecs_p, dx=self._dd)
-            self._g1 = simps(G1_mieml*Scs_p, dx=self._dd)/self._scs
+            self._scs = simpson(Scs_p, dx=self._dd)
+            self._ecs = simpson(Ecs_p, dx=self._dd)
+            self._g1 = simpson(G1_mieml*Scs_p, dx=self._dd)/self._scs
 
     @staticmethod
     def _g1_scs(nlayers, nmedium: ComplexVector, diameters: FloatVector,
@@ -283,7 +283,7 @@ class MieMlPd(PfBase):
 
     def _mieml_pd(self, Pf):
         self._pdpts.shape = (self._D.size, 1)
-        pf = simps(Pf*self._pdpts, dx=self._dd, axis=0)
+        pf = simpson(Pf*self._pdpts, dx=self._dd, axis=0)
         return pf
 
     def _mieml_quad_pd(self, costheta):

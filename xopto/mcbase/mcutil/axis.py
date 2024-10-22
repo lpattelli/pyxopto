@@ -232,9 +232,9 @@ class RadialAxis(Axis):
         The spacing of points in the RadialAxis is uneven even if logscale is
         set to False, since correction of the bin centers depends on the
         absolute position of the bin.
-        If using data from RadialAxis with the simpson integration method make
+        If using data from RadialAxis with the Simpson integration method make
         sure to use a version that does not require a fixed step (specify x
-        instead of dx in a call to scipy.integrate.simps).
+        instead of dx in a call to scipy.integrate.simpson).
         If using the :py:meth:`xopto.util.hankel.discrete_simpson` method make
         sure to set the value of the uneven parameter to True.
         '''

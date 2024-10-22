@@ -23,7 +23,7 @@
 from typing import Callable, Tuple
 
 import numpy as np
-from scipy.integrate import quad, simps
+from scipy.integrate import quad, simpson
 
 from .pfbase import PfBase
 from .mie import Mie
@@ -131,9 +131,9 @@ class MiePd(PfBase):
                 Scs_p[i] = mie.scs()*self._pdpts[i]
                 Ecs_p[i] = mie.ecs()*self._pdpts[i]
 
-            self._scs = simps(Scs_p, dx=self._dd)
-            self._ecs = simps(Ecs_p, dx=self._dd)
-            self._g1 = simps(G1_mie*Scs_p, dx=self._dd)/self._scs
+            self._scs = simpson(Scs_p, dx=self._dd)
+            self._ecs = simpson(Ecs_p, dx=self._dd)
+            self._g1 = simpson(G1_mie*Scs_p, dx=self._dd)/self._scs
 
     @staticmethod
     def _g1_scs(nsphere: float or complex, nmedium: float or complex,
@@ -215,7 +215,7 @@ class MiePd(PfBase):
 
     def _mie_pd(self, Pf: np.ndarray) -> np.ndarray:
         self._pdpts.shape = (self._D.size, 1)
-        pf = simps(Pf*self._pdpts, dx=self._dd, axis=0)
+        pf = simpson(Pf*self._pdpts, dx=self._dd, axis=0)
         return pf
 
     def _mie_pd_quad(self, costheta: np.ndarray) -> np.ndarray:

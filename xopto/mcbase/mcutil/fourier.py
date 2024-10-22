@@ -23,8 +23,7 @@
 import numpy as np
 
 # Import the Symmetric Fourier Transform class
-from scipy.interpolate import interp1d
-from scipy.integrate import quad, simps
+from scipy.integrate import simpson
 
 def _uneven(array):
     tmp = np.diff(array)
@@ -85,8 +84,8 @@ def discreteSimpson(frequency: list or tuple or np.ndarray,
     for index in range(np_freqs.size):
         f = fpts*np.exp(-2.0*np.pi*1j*xpts*np_freqs[index])
         if out.ndim > 1:
-            out[:, index] = simps(f, x, dx=dx)
+            out[:, index] = simpson(f, x, dx=dx)
         else:
-            out[index] = simps(f, x, dx=dx)
+            out[index] = simpson(f, x, dx=dx)
 
     return out
