@@ -22,7 +22,7 @@
 
 import numpy as np
 from scipy.interpolate import interp1d
-from scipy.integrate import simps
+from scipy.integrate import simpson
 
 def fiber_reflectance(r: np.ndarray, reflectance: np.ndarray,
                       sds: float or np.ndarray, dcore: float,
@@ -112,7 +112,7 @@ def fiber_reflectance(r: np.ndarray, reflectance: np.ndarray,
 
         # Take care of special case when sds = 0.0.
         if d == 0.0:
-            fiber_reflectance[:, index] = 2.0*np.pi*simps(
+            fiber_reflectance[:, index] = 2.0*np.pi*simpson(
                 fsimps*rsimps, x=simps_r, dx=simps_dr
             )
 
@@ -120,7 +120,7 @@ def fiber_reflectance(r: np.ndarray, reflectance: np.ndarray,
             # First element of rsimps might be zero ... precision!
             d_times_rsimps = rsimps*d
             d_times_rsimps[d_times_rsimps == 0.0] = np.finfo(np.float64).tiny
-            fiber_reflectance[:, index] = 2.0*simps(
+            fiber_reflectance[:, index] = 2.0*simpson(
                 np.arccos(
                     np.clip(
                         (rsimps**2 + d**2 - rfib**2)/(2.0*d_times_rsimps),
